@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+  Pharos design tokens.
+  Named after the Lighthouse of Alexandria: a beacon that watches over your
+  systems in the dark and guides you to what needs attention.
+
+  Ink       #0B1220  - the night sea. Base background.
+  Deep Sea  #121B2E  - surfaces, cards, raised panels.
+  Fog       #5B6B85  - muted text, secondary information.
+  Paper     #E8EDF5  - primary text, like moonlight on a chart.
+  Beacon    #FFB454  - the lamp. Reserved for primary actions + alerts.
+  Sea-glass #5EEAD4  - positive metrics, secondary accents.
+*/
+
+@layer base {
+  :root {
+    --background: 222 45% 8%;
+    --foreground: 220 43% 94%;
+
+    --card: 220 40% 13%;
+    --card-foreground: 220 43% 94%;
+
+    --border: 220 30% 22%;
+    --input: 220 30% 22%;
+    --ring: 38 100% 67%;
+
+    --primary: 38 100% 67%;
+    --primary-foreground: 222 45% 8%;
+
+    --secondary: 220 33% 18%;
+    --secondary-foreground: 220 43% 94%;
+
+    --muted: 220 33% 16%;
+    --muted-foreground: 220 15% 62%;
+
+    --accent: 168 71% 70%;
+    --accent-foreground: 222 45% 8%;
+
+    --destructive: 0 72% 63%;
+    --destructive-foreground: 220 43% 94%;
+
+    --beacon-amber: 38 100% 67%;
+    --beacon-teal: 168 71% 70%;
+
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+}
