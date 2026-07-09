@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, ScrollText, KeyRound, Settings, Users } from 'lucide-react';
+import { LayoutDashboard, ScrollText, KeyRound, Settings, Users, FolderOpen } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const NAV_ITEMS = [
@@ -11,6 +11,7 @@ const NAV_ITEMS = [
   { href: '/dashboard/api-keys', label: 'API keys', icon: KeyRound },
   { href: '/dashboard/team', label: 'Team', icon: Users },
   { href: '/dashboard/settings', label: 'Settings', icon: Settings },
+  { href: '/dashboard/files', label: 'Files', icon: FolderOpen },
 ];
 
 export function Sidebar() {

@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { apiFetch, setTokens } from '@/lib/api';
+import { apiFetch } from '@/lib/api';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -21,11 +21,10 @@ export default function LoginPage() {
     setError(null);
     setLoading(true);
     try {
-      const data = await apiFetch<{ accessToken: string; refreshToken: string }>(
-        '/auth/login',
-        { method: 'POST', body: JSON.stringify({ email, password }) },
-      );
-      setTokens(data.accessToken, data.refreshToken);
+      await apiFetch('/auth/login', {
+        method: 'POST',
+        body: JSON.stringify({ email, password }),
+      });
       router.push('/dashboard');
     } catch {
       setError('Wrong email or password. Try again.');

@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { apiFetch, setTokens } from '@/lib/api';
+import { apiFetch } from '@/lib/api';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -22,11 +22,10 @@ export default function RegisterPage() {
     setError(null);
     setLoading(true);
     try {
-      const data = await apiFetch<{ accessToken: string; refreshToken: string }>(
-        '/auth/register',
-        { method: 'POST', body: JSON.stringify({ name, email, password }) },
-      );
-      setTokens(data.accessToken, data.refreshToken);
+      await apiFetch('/auth/register', {
+        method: 'POST',
+        body: JSON.stringify({ name, email, password }),
+      });
       router.push('/dashboard');
     } catch (err: any) {
       const msg = err?.body?.message;
