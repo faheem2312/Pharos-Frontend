@@ -6,6 +6,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { apiFetch } from '@/lib/api';
+import { connectSocket, disconnectSocket } from '@/lib/socket';
 
 interface LogEvent {
   id: string;
@@ -25,6 +26,26 @@ export default function LogsPage() {
   const [query, setQuery] = useState('');
   const [events, setEvents] = useState<LogEvent[]>([]);
   const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+  let active = true;
+
+  connectSocket().then((socket) => {
+    socket.on('log', (newEvent: LogEvent) => {
+      if (!active) return;
+      // Prepend the live event only if there's no active search filter —
+      // otherwise a live push could show up even though it doesn't match
+      // what's currently being searched for, which would be confusing.
+      setEvents((prev) => (query ? prev : [newEvent, ...prev]));
+    });
+  });
+
+  return () => {
+    active = false;
+    disconnectSocket();
+  };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     setLoading(true);
