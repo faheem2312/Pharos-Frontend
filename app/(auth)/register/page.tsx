@@ -29,7 +29,8 @@ export default function RegisterPage() {
       router.push('/dashboard');
     } catch (err: any) {
       const msg = err?.body?.message;
-      setError(Array.isArray(msg) ? msg[0] : msg ?? 'Could not create your account.');
+      const parsedMsg = typeof msg === 'string' ? msg : Array.isArray(msg) ? msg[0] : (err?.message || 'Could not create your account.');
+      setError(parsedMsg);
     } finally {
       setLoading(false);
     }
